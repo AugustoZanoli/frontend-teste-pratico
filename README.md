@@ -19,8 +19,8 @@
 ### 1. Clonar o repositório
 
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO>
-cd <PASTA_DO_PROJETO>
+git clone https://github.com/AugustoZanoli/frontend-teste-pratico.git
+cd frontend-teste-pratico
 ```
 
 ### 2. Instalar as dependências
