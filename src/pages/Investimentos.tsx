@@ -40,6 +40,11 @@ export default function Investimentos() {
                     0
                 );
                 setTotal(soma);
+            }).catch((err) => {
+                console.error("Erro ao deletar:", err);
+                setToastMessage("Erro");
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
             })
             .finally(() => setLoading(false));
     };
@@ -56,6 +61,9 @@ export default function Investimentos() {
             })
             .catch((err) => {
                 console.error("Erro ao deletar:", err);
+                setToastMessage("Erro");
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
             })
             .finally(() => setDeletingId(null));
     };

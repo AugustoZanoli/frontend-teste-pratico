@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Toast from "../components/Toast";
 
 type Props = {
     onClose: () => void;
@@ -11,6 +12,8 @@ export default function NovoInvestimentoModal({ onClose, onSuccess }: Props) {
     const [tipo, setTipo] = useState("");
     const [valor, setValor] = useState<number | string>("");
     const [data, setData] = useState("");
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     const [validacoes, setValidacoes] = useState<{ [key: string]: string }>({});
 
@@ -59,9 +62,12 @@ export default function NovoInvestimentoModal({ onClose, onSuccess }: Props) {
                     onClose();
                 });
             })
-            .catch(() => {
-                alert("Erro ao cadastrar investimento.");
-            });
+            .catch((err) => {
+                console.error("Erro ao deletar:", err);
+                setToastMessage("Erro");
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
+            })
     };
 
     return (
@@ -71,7 +77,7 @@ export default function NovoInvestimentoModal({ onClose, onSuccess }: Props) {
                     <h2 className="text-2xl font-bold mb-4">Novo Investimento</h2>
 
                     <div className="space-y-4">
-                        
+
                         <div>
                             <label className="block text-sm font-medium text-start">
                                 Nome
@@ -158,6 +164,9 @@ export default function NovoInvestimentoModal({ onClose, onSuccess }: Props) {
                         </button>
                     </div>
                 </div>
+                {showToast && (
+                    <Toast message={toastMessage} onClose={() => setShowToast(false)} />
+                )}
             </div>
         </>
     );
