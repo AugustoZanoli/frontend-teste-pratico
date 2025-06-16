@@ -47,22 +47,19 @@ export default function Investimentos() {
     const deletar_investimento = (id: number) => {
         setDeletingId(id);
         axios
-            .delete("http://localhost:8000/backend/public/api/investimentos", {
-                params: { id },
-            })
+            .delete(`http://localhost:8000/backend/public/api/investimentos/${id}`)
             .then(() => {
                 listar_investimentos();
                 setToastMessage("Deletar");
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
-
             })
             .catch((err) => {
                 console.error("Erro ao deletar:", err);
             })
             .finally(() => setDeletingId(null));
-
     };
+
 
     useEffect(() => {
         listar_investimentos();
