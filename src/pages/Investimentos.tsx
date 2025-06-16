@@ -13,7 +13,8 @@ export default function Investimentos() {
   const [investimentos, setInvestimentos] = useState<Investimento[]>([]);
   const [total, setTotal] = useState(0);
 
-  useEffect(() => {
+  // Função para listar todos os investimentos
+  const listar_investimentos = () => {
     axios.get("http://localhost:8000/backend/public/api/investimentos").then((res) => {
       const lista = res.data.investimentos;
       setInvestimentos(lista);
@@ -24,6 +25,25 @@ export default function Investimentos() {
       );
       setTotal(soma);
     });
+  }
+
+  // Função para deletar o investimento, recebendo o id do objeto
+  const deletar_investimento = (id: number) => {
+  axios
+    .delete("http://localhost:8000/backend/public/api/investimentos", {
+      params: { id },
+    })
+    .then(() => {
+      listar_investimentos();
+    })
+    .catch((err) => {
+      console.error("Erro ao deletar:", err);
+    });
+};
+
+
+  useEffect(() => {
+    listar_investimentos();
   }, []);
 
   return (
@@ -75,7 +95,8 @@ export default function Investimentos() {
                   <button className="px-3 py-1 border border-purple-600 rounded text-purple-700 hover:bg-purple-200 transition">
                     Editar
                   </button>
-                  <button className="px-3 py-1 border border-red-600 rounded text-red-600 hover:bg-red-100 transition">
+                  <button className="px-3 py-1 border border-red-600 rounded text-red-600 hover:bg-red-100 transition"
+                  onClick={() => deletar_investimento(item.id)}>
                     Deletar
                   </button>
                 </td>
