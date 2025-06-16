@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import { Link } from "react-router-dom";
+import Botao from "../components/Botao";
 
 const Home: React.FC = () => {
     return (
@@ -15,11 +15,7 @@ const Home: React.FC = () => {
                     Uma plataforma simples, moderna e intuitiva para gerenciar seus investimentos.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6">
-                    <Link to="/investimentos">
-                        <button className="bg-yellow-400 text-indigo-900 font-semibold px-8 py-3 rounded-md hover:bg-yellow-300 transition shadow-lg">
-                            Comece Agora
-                        </button>
-                    </Link>
+                    <Botao texto="Começe agora" rota="/investimentos"/>
                 </div>
             </section>
         </div>
