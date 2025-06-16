@@ -62,8 +62,7 @@ export default function NovoInvestimentoModal({ onClose, onSuccess }: Props) {
                     onClose();
                 });
             })
-            .catch((err) => {
-                console.error("Erro ao deletar:", err);
+            .catch(() => {
                 setToastMessage("Erro");
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
