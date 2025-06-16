@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
-        <header className="flex items-center justify-between px-8 py-5 border-b border-indigo-600 ">
+        <header className="flex flex-col sm:flex-row items-center justify-between px-8 py-5 border-b border-indigo-600 ">
             <div className="text-2xl font-extrabold text-white tracking-wide">
                 Gerenciador de Investimentos
             </div>
