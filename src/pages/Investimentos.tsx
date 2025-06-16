@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "../components/Header";
 import Botao from "../components/Botao";
 import NovoInvestimentoModal from "./NovoInvestimento";
+import Toast from "../components/Toast";
 
 type Investimento = {
     id: number;
@@ -18,6 +19,9 @@ export default function Investimentos() {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+
 
     const listar_investimentos = () => {
         setLoading(true);
@@ -44,11 +48,16 @@ export default function Investimentos() {
             })
             .then(() => {
                 listar_investimentos();
+                setToastMessage("Deletar");
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
+
             })
             .catch((err) => {
                 console.error("Erro ao deletar:", err);
             })
             .finally(() => setDeletingId(null));
+
     };
 
     useEffect(() => {
@@ -140,9 +149,19 @@ export default function Investimentos() {
             {showModal && (
                 <NovoInvestimentoModal
                     onClose={() => setShowModal(false)}
-                    onSuccess={listar_investimentos}
+                    onSuccess={() => {
+                        listar_investimentos();
+                        setToastMessage("Inserir");
+                        setShowToast(true);
+                        setTimeout(() => setShowToast(false), 2000);
+                    }}
                 />
             )}
+            {showToast && (
+                <Toast message={toastMessage} onClose={() => setShowToast(false)} />
+            )}
+
+
 
         </div>
 
