@@ -16,6 +16,10 @@
 
 ---
 
+### Necessário
+- Node.js e npm instalados
+
+
 ### 1. Clonar o repositório
 
 ```bash
