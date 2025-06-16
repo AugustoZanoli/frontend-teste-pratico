@@ -50,8 +50,6 @@ http://localhost:8000/backend/public/api/investimentos
 Execute:
 
 ```bash
-Copiar
-Editar
 npm run dev
 ```
 
