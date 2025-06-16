@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Botao from "../components/Botao";
 import NovoInvestimentoModal from "./NovoInvestimento";
 import Toast from "../components/Toast";
+import EditarInvestimentoModal from "./AtualizarInvestimento";
 
 type Investimento = {
     id: number;
@@ -17,10 +18,13 @@ export default function Investimentos() {
     const [investimentos, setInvestimentos] = useState<Investimento[]>([]);
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [showModal, setShowModal] = useState(false);
+    const [showModalInsercao, setShowModalInsercao] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
+    const [showModalEdicao, setShowModalEdicao] = useState(false);
+    const [investimentoSelecionado, setInvestimentoSelecionado] = useState<Investimento | null>(null);
+
 
 
     const listar_investimentos = () => {
@@ -82,7 +86,7 @@ export default function Investimentos() {
                         </p>
                     </div>
                     <div>
-                        <Botao texto="Novo Investimento" onClick={() => setShowModal(true)} />
+                        <Botao texto="Novo Investimento" onClick={() => setShowModalInsercao(true)} />
                     </div>
                 </div>
 
@@ -125,7 +129,12 @@ export default function Investimentos() {
                                             {new Date(item.data).toLocaleDateString("pt-BR")}
                                         </td>
                                         <td className="py-3 px-4 text-center space-x-2 flex flex-row justify-center">
-                                            <button className="px-3 py-1 border border-purple-600 rounded text-purple-700 hover:bg-purple-200 transition">
+                                            <button
+                                                onClick={() => {
+                                                    setInvestimentoSelecionado(item);
+                                                    setShowModalEdicao(true);
+                                                }}
+                                                className="px-3 py-1 border border-purple-600 rounded text-purple-700 hover:bg-purple-200 transition">
                                                 Editar
                                             </button>
                                             <button
@@ -146,9 +155,9 @@ export default function Investimentos() {
                     )}
                 </div>
             </div>
-            {showModal && (
+            {showModalInsercao && (
                 <NovoInvestimentoModal
-                    onClose={() => setShowModal(false)}
+                    onClose={() => setShowModalInsercao(false)}
                     onSuccess={() => {
                         listar_investimentos();
                         setToastMessage("Inserir");
@@ -160,6 +169,20 @@ export default function Investimentos() {
             {showToast && (
                 <Toast message={toastMessage} onClose={() => setShowToast(false)} />
             )}
+            {showModalEdicao && investimentoSelecionado && (
+                <EditarInvestimentoModal
+                    investimento={investimentoSelecionado}
+                    onClose={() => setShowModalEdicao(false)}
+                    onSuccess={() => {
+                        listar_investimentos();
+                        setShowModalEdicao(false);
+                        setToastMessage("Atualizar");
+                        setShowToast(true);
+                        setTimeout(() => setShowToast(false), 2000);
+                    }}
+                />
+            )}
+
 
 
 
