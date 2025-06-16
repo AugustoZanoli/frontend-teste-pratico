@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Toast from "../components/Toast";
 
 type Props = {
     onClose: () => void;
@@ -19,6 +20,8 @@ export default function EditarInvestimentoModal({ onClose, onSuccess, investimen
     const [valor, setValor] = useState<number | string>(investimento.valor);
     const [data, setData] = useState(investimento.data);
     const [validacoes, setValidacoes] = useState<{ [key: string]: string }>({});
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     const tipo_investimento = [
         { tipo: "Ação" },
@@ -66,8 +69,10 @@ export default function EditarInvestimentoModal({ onClose, onSuccess, investimen
                 });
             })
             .catch(() => {
-                alert("Erro ao atualizar investimento.");
-            });
+                setToastMessage("Erro");
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
+            })
     };
 
     return (
@@ -154,6 +159,9 @@ export default function EditarInvestimentoModal({ onClose, onSuccess, investimen
                     </button>
                 </div>
             </div>
+            {showToast && (
+                <Toast message={toastMessage} onClose={() => setShowToast(false)} />
+            )}
         </div>
     );
 }
