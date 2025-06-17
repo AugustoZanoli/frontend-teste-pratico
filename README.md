@@ -50,12 +50,12 @@ Ou
 yarn install
 ```
 
-### 3. Configurar a URL da API
+### 3. Verificar a URL da API
 
-Verifique se a URL da API está correta no seu código. Atualmente, o frontend está apontando para:
+Verifique se a URL da API está correta e se o servidor backend está rodando normalmente. Atualmente, o frontend está apontando para:
 
 ```ts
-http://localhost:8000/backend/public/api/investimentos
+http://localhost:8000/backend/public/
 ```
 
 ### 4. Rodar o servidor de desenvolvimento
