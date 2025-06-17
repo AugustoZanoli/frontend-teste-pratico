@@ -24,8 +24,17 @@
 
 ```bash
 git clone https://github.com/AugustoZanoli/frontend-teste-pratico.git
-cd frontend-teste-pratico
+ren frontend-teste-pratico frontend
+cd frontend
 ```
+
+Caso esteja utilizando linux ou mac, substitua o comando ren por mv
+
+```bash
+mv frontend-teste-pratico frontend
+```
+
+
 
 ### 2. Instalar as dependências
 
