@@ -85,6 +85,8 @@ http://localhost:5173
 
 - Cadastro de novos investimentos
 
+- Atualização de investimentos
+
 - Remoção de investimentos
 
 - Cálculo do total investido
